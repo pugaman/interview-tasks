@@ -1,0 +1,30 @@
+plugins {
+    // Apply the java plugin to add support for Java
+    id 'java'
+
+    // Apply the application plugin to add support for building an application
+    id 'application'
+}
+
+repositories {
+    maven {
+        url project.mavenUrl
+    }
+}
+
+dependencies {
+    // This dependency is found on compile classpath of this component and consumers.
+    implementation 'com.google.guava:guava:26.0-jre'
+    implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
+
+    // Use JUnit test framework
+    testImplementation 'junit:junit:4.12'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.23.0'
+
+    annotationProcessor 'org.projectlombok:lombok:1.18.4'
+}
+
+// Define the main class for the application
+mainClassName = 'interview.tasks.App'
+java.sourceCompatibility = JavaVersion.VERSION_1_8
+java.targetCompatibility = JavaVersion.VERSION_1_8
