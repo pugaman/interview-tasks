@@ -16,6 +16,7 @@ dependencies {
     // This dependency is found on compile classpath of this component and consumers.
     implementation 'com.google.guava:guava:26.0-jre'
     implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
