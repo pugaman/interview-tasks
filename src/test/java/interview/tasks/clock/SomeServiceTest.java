@@ -5,8 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.concurrent.TimeUnit;
-
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -33,24 +32,28 @@ public class SomeServiceTest {
     public void simpleLogicMethodTest() {
         service.linearMethod();
 
-        clock.rewind(2, TimeUnit.SECONDS);
-        assertEquals("event1", eventListener.pop().getData());
+        clock.rewind(2, SECONDS);
+        assertEquals("1", pop());
 
-        clock.rewind(2, TimeUnit.SECONDS);
-        assertEquals("event2", eventListener.pop().getData());
+        clock.rewind(2, SECONDS);
+        assertEquals("2", pop());
 
-        clock.rewind(2, TimeUnit.SECONDS);
-        assertEquals("event3", eventListener.pop().getData());
+        clock.rewind(2, SECONDS);
+        assertEquals("3", pop());
+    }
+
+    private String pop() {
+        return eventListener.pop().getData();
     }
 
     @Test
     public void simpleLogicMethodTest2() {
         service.linearMethod();
 
-        clock.rewind(10, TimeUnit.SECONDS);
-        assertEquals("event1", eventListener.pop().getData());
-        assertEquals("event2", eventListener.pop().getData());
-        assertEquals("event3", eventListener.pop().getData());
+        clock.rewind(10, SECONDS);
+        assertEquals("1", pop());
+        assertEquals("2", pop());
+        assertEquals("3", pop());
 
     }
 
@@ -58,27 +61,41 @@ public class SomeServiceTest {
     public void notLinealMethodTest() {
         service.notLinearMethod();
 
-        clock.rewind(2, TimeUnit.SECONDS);
-        assertEquals("event1", eventListener.pop().getData());
+        clock.rewind(2, SECONDS);
+        assertEquals("1", pop());
 
-        clock.rewind(2, TimeUnit.SECONDS);
-        assertEquals("event2", eventListener.pop().getData());
+        clock.rewind(2, SECONDS);
+        assertEquals("2", pop());
 
-        clock.rewind(2, TimeUnit.SECONDS);
-        assertEquals("event3", eventListener.pop().getData());
+        clock.rewind(2, SECONDS);
+        assertEquals("3", pop());
     }
 
     @Test
     public void notLinealMethodTest2() {
         service.notLinearMethod();
 
-        clock.rewind(15, TimeUnit.SECONDS);
-        assertEquals("event1", eventListener.pop().getData());
-        assertEquals("event2", eventListener.pop().getData());
-        assertEquals("event3", eventListener.pop().getData());
+        clock.rewind(15, SECONDS);
+        assertEquals("1", pop());
+        assertEquals("2", pop());
+        assertEquals("3", pop());
     }
 
-    //    @Test
+    @Test
+    public void notLinearMethod2Test1() {
+        service.notLinearMethod2();
+
+        clock.rewind(4, SECONDS);
+        assertEquals("1", pop());
+
+        clock.rewind(2, SECONDS);
+        assertEquals("2", pop());
+
+        clock.rewind(2, SECONDS);
+        assertEquals("3", pop());
+    }
+
+//    @Test
     public void test1() throws InterruptedException {
         new SomeService(new ExecutorClock(), new SoutEventPublisher()).linearMethod();
         Thread.sleep(10_000);
