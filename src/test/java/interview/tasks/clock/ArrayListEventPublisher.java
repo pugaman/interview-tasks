@@ -1,12 +1,12 @@
 package interview.tasks.clock;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
 import interview.tasks.clock.event.Event;
 import interview.tasks.clock.event.EventPublisher;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.assertFalse;
 
 class ArrayListEventPublisher implements EventPublisher {
 
@@ -25,4 +25,10 @@ class ArrayListEventPublisher implements EventPublisher {
         assertFalse(events.isEmpty());
         return events.remove(0);
     }
+
+    Event popExactlyOne() {
+        assertEquals(1, events.size());
+        return events.remove(0);
+    }
+
 }

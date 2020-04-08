@@ -14,6 +14,7 @@ class RewindableClock implements Clock {
         tasks.put(timeUnit.toNanos(amount), task);
     }
 
+    @Override
     public void rewind(long amount, TimeUnit timeUnit) {
         final long skipNanos = timeUnit.toNanos(amount);
         tasks.keySet().stream()

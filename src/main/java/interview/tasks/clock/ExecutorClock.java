@@ -13,5 +13,12 @@ public class ExecutorClock implements Clock {
         executor.schedule(task, amount, timeUnit);
     }
 
-
+    @Override
+    public void rewind(long amount, TimeUnit timeUnit) {
+        try {
+            Thread.sleep(timeUnit.toMillis(amount));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

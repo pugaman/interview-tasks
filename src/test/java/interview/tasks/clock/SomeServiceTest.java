@@ -1,20 +1,27 @@
 package interview.tasks.clock;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import interview.tasks.clock.event.SoutEventPublisher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 public class SomeServiceTest {
 
     private SomeService service;
-    private RewindableClock clock;
+    private Clock clock;
     private ArrayListEventPublisher eventListener;
 
+    private String pop() {
+        return eventListener.pop().getData();
+    }
+
+    private String popExactlyOne() {
+        return eventListener.popExactlyOne().getData();
+    }
 
     @Before
     public void init() {
@@ -33,18 +40,15 @@ public class SomeServiceTest {
         service.linearMethod();
 
         clock.rewind(2, SECONDS);
-        assertEquals("1", pop());
+        assertEquals("1", popExactlyOne());
 
         clock.rewind(2, SECONDS);
-        assertEquals("2", pop());
+        assertEquals("2", popExactlyOne());
 
         clock.rewind(2, SECONDS);
-        assertEquals("3", pop());
+        assertEquals("3", popExactlyOne());
     }
 
-    private String pop() {
-        return eventListener.pop().getData();
-    }
 
     @Test
     public void simpleLogicMethodTest2() {
@@ -62,13 +66,13 @@ public class SomeServiceTest {
         service.notLinearMethod();
 
         clock.rewind(2, SECONDS);
-        assertEquals("1", pop());
+        assertEquals("1", popExactlyOne());
 
         clock.rewind(2, SECONDS);
-        assertEquals("2", pop());
+        assertEquals("2", popExactlyOne());
 
         clock.rewind(2, SECONDS);
-        assertEquals("3", pop());
+        assertEquals("3", popExactlyOne());
     }
 
     @Test
@@ -86,13 +90,13 @@ public class SomeServiceTest {
         service.notLinearMethod2();
 
         clock.rewind(4, SECONDS);
-        assertEquals("1", pop());
+        assertEquals("1", popExactlyOne());
 
         clock.rewind(2, SECONDS);
-        assertEquals("2", pop());
+        assertEquals("2", popExactlyOne());
 
         clock.rewind(2, SECONDS);
-        assertEquals("3", pop());
+        assertEquals("3", popExactlyOne());
     }
 
 //    @Test
