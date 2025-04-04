@@ -1,9 +1,15 @@
 plugins {
-    // Apply the java plugin to add support for Java
     id 'java'
 
     // Apply the application plugin to add support for building an application
     id 'application'
+}
+
+group = 'interview.tasks'
+version = '1.0-SNAPSHOT'
+
+application {
+    mainClass = 'interview.tasks.App'
 }
 
 repositories {
@@ -12,18 +18,18 @@ repositories {
 
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
-    implementation 'com.google.guava:guava:26.0-jre'
+    implementation 'com.google.guava:guava:32.0.1-android'
     implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
 
     // Use JUnit test framework
-    testImplementation 'junit:junit:4.12'
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.23.0'
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
 
-    annotationProcessor 'org.projectlombok:lombok:1.18.4'
+    annotationProcessor 'org.projectlombok:lombok:1.18.38'
 }
 
-// Define the main class for the application
-mainClassName = 'interview.tasks.App'
-java.sourceCompatibility = JavaVersion.VERSION_1_8
-java.targetCompatibility = JavaVersion.VERSION_1_8
+test {
+    useJUnitPlatform()
+}

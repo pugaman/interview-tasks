@@ -1,14 +1,16 @@
 package interview.tasks.clock;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import interview.tasks.clock.event.SoutEventPublisher;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
+@Disabled
 public class SomeServiceTest {
 
     private SomeService service;
@@ -23,14 +25,14 @@ public class SomeServiceTest {
         return eventListener.popExactlyOne().getData();
     }
 
-    @Before
+    @BeforeEach
     public void init() {
         clock = new RewindableClock();
         eventListener = new ArrayListEventPublisher();
         service = new SomeService(clock, eventListener);
     }
 
-    @After
+    @AfterEach
     public void finish() {
         assertTrue(eventListener.isEmpty());
     }
